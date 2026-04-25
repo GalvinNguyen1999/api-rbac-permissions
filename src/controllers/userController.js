@@ -2,33 +2,18 @@
 import { StatusCodes } from 'http-status-codes'
 import ms from 'ms'
 import { JwtProvider, ACCESS_TOKEN_SECRET_SIGNATURE, REFRESH_TOKEN_SECRET_SIGNATURE } from '~/providers/JwtProvider'
-
+import { MOCK_DATABASE_USER_LEVEL_1 } from '~/models/rbac-lever-1'
 /**
  * Mock nhanh thông tin user thay vì phải tạo Database rồi query.
  * Nếu muốn học kỹ và chuẩn chỉnh đầy đủ hơn thì xem Playlist này nhé:
  * https://www.youtube.com/playlist?list=PLP6tw4Zpj-RIMgUPYxhLBVCpaBs94D73V
  */
 
-const MOCK_ROLES = {
-  ADMIN: 'admin',
-  CLIENT: 'client',
-  MODERATOR: 'moderator'
-}
-
-const MOCK_DATABASE = {
-  USER: {
-    ID: 'trungquandev-sample-id-12345678',
-    EMAIL: 'trungquandev.official@gmail.com',
-    PASSWORD: 'trungquandev@123',
-    ROLE: MOCK_ROLES.CLIENT
-  }
-}
-
 const login = async (req, res) => {
   try {
     if (
-      req.body.email !== MOCK_DATABASE.USER.EMAIL ||
-      req.body.password !== MOCK_DATABASE.USER.PASSWORD
+      req.body.email !== MOCK_DATABASE_USER_LEVEL_1.EMAIL ||
+      req.body.password !== MOCK_DATABASE_USER_LEVEL_1.PASSWORD
     ) {
       res
         .status(StatusCodes.FORBIDDEN)
@@ -39,9 +24,9 @@ const login = async (req, res) => {
     // Trường hợp nhập đúng thông tin tài khoản, tạo token và trả về cho phía Client
     // step 1: mock data user
     const userInfo = {
-      id: MOCK_DATABASE.USER.ID,
-      email: MOCK_DATABASE.USER.EMAIL,
-      role: MOCK_DATABASE.USER.ROLE
+      id: MOCK_DATABASE_USER_LEVEL_1.ID,
+      email: MOCK_DATABASE_USER_LEVEL_1.EMAIL,
+      role: MOCK_DATABASE_USER_LEVEL_1.ROLE
     }
 
     // step 2: generate access token (lưu ý: thời gian sống của access token phải nhỏ hơn refresh token vì khi access token hết hạn thì client sẽ request refresh token để lấy access token mới)
