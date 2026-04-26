@@ -4,6 +4,8 @@ import ms from 'ms'
 import { JwtProvider, ACCESS_TOKEN_SECRET_SIGNATURE, REFRESH_TOKEN_SECRET_SIGNATURE } from '~/providers/JwtProvider'
 import { MOCK_DATABASE_USER_LEVEL_1 } from '~/models/rbac-lever-1'
 import { MOCK_DATABASE_USER_LEVEL_2 } from '~/models/rbac-level-2'
+import { MOCK_DATABASE_USER_LEVEL_3 } from '~/models/rbac-level-3'
+
 /**
  * Mock nhanh thông tin user thay vì phải tạo Database rồi query.
  * Nếu muốn học kỹ và chuẩn chỉnh đầy đủ hơn thì xem Playlist này nhé:
@@ -25,9 +27,9 @@ const login = async (req, res) => {
     // Trường hợp nhập đúng thông tin tài khoản, tạo token và trả về cho phía Client
     // step 1: mock data user
     const userInfo = {
-      id: MOCK_DATABASE_USER_LEVEL_2.ID,
-      email: MOCK_DATABASE_USER_LEVEL_2.EMAIL,
-      role: MOCK_DATABASE_USER_LEVEL_2.ROLE
+      id: MOCK_DATABASE_USER_LEVEL_3.ID,
+      email: MOCK_DATABASE_USER_LEVEL_3.EMAIL,
+      role: MOCK_DATABASE_USER_LEVEL_3.ROLES
     }
 
     // step 2: generate access token (lưu ý: thời gian sống của access token phải nhỏ hơn refresh token vì khi access token hết hạn thì client sẽ request refresh token để lấy access token mới)
